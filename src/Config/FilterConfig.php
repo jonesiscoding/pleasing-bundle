@@ -7,6 +7,7 @@ use DevCoding\Pleasing\Filter\FilterInterface;
 
 /**
  * @property string $apply_to
+ * @property array  $import_paths
  * @property string $class
  */
 class FilterConfig extends \ArrayObject
