@@ -8,10 +8,10 @@ use Psr\Container\ContainerInterface as PsrContainerInterface;
 class FilterCollection implements PsrContainerInterface, \Countable
 {
   /** @var FilterConfig[]  */
-  protected array $config;
+  public array $config;
 
   /** @var FilterInterface[] */
-  protected array $filters = array();
+  protected array $filters = [];
 
   public function __construct(array $configs)
   {
