@@ -42,22 +42,23 @@ class Directories extends \ArrayObject
   {
     $dir = sprintf('%s/%s', $this->offsetGet('project'), $suffix);
 
-    if ($suffix === Config::PUBLIC)
+    if (Config::PUBLIC === $suffix)
     {
       if (!is_dir($dir))
       {
         return $this->findDir('web');
       }
     }
-    elseif ($suffix === 'web')
+    elseif ('web' === $suffix)
     {
       if (!is_dir($dir))
       {
         $pj = $this->offsetGet('project');
+
         throw new \LogicException(sprintf(
-            'The public directory could not be found at "%s/public" or "%s/web".',
-            $pj,
-            $pj
+          'The public directory could not be found at "%s/public" or "%s/web".',
+          $pj,
+          $pj
         ));
       }
     }
