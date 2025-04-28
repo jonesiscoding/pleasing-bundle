@@ -23,7 +23,7 @@ class Config implements ContainerInterface
 
   public Directories      $directories;
   public FilterCollection $filters;
-  public array            $assets;
+  public AssetContainer   $assets;
   public string           $manifest;
   public bool             $debug;
   protected bool          $resolved;
@@ -35,7 +35,7 @@ class Config implements ContainerInterface
   {
     $this->debug       = $config[Config::DEBUG] ?? $_SERVER['APP_DEBUG'] ?? false;
     $this->manifest    = $config[Config::MANIFEST];
-    $this->assets      = $config[Config::ASSETS] ?? [];
+    $this->assets      = new AssetContainer($this->mapAssets($config[Config::ASSETS] ?? []));
     $this->directories = new Directories($config);
     $this->filters     = new FilterCollection($this->mapFilters($config[Config::FILTERS] ?? []));
   }
@@ -73,5 +73,15 @@ class Config implements ContainerInterface
   private function mapFilters(array $filters): array
   {
     return array_map(function($fc) use ($filters) { return new FilterConfig($fc); }, $filters);
+  }
+
+  /**
+   * @param array[] $assets
+   *
+   * @return AssetConfig[]
+   */
+  private function mapAssets(array $assets): array
+  {
+    return array_map(function($ac) use ($assets) { return new AssetConfig($ac, $this->debug); }, $assets);
   }
 }
