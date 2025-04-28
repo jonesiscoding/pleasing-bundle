@@ -24,6 +24,7 @@ class Config implements ContainerInterface
   public Directories      $directories;
   public FilterCollection $filters;
   public AssetContainer   $assets;
+  public ElementContainer $elements;
   public string           $manifest;
   public bool             $debug;
   protected bool          $resolved;
@@ -37,6 +38,7 @@ class Config implements ContainerInterface
     $this->manifest    = $config[Config::MANIFEST];
     $this->assets      = new AssetContainer($this->mapAssets($config[Config::ASSETS] ?? []));
     $this->directories = new Directories($config);
+    $this->elements    = new ElementContainer();
     $this->filters     = new FilterCollection($this->mapFilters($config[Config::FILTERS] ?? []));
   }
 
