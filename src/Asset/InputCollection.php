@@ -33,7 +33,12 @@ class InputCollection implements PsrContainerInterface, \Countable, \IteratorAgg
     $this->Locator = $locator;
   }
 
-  public function get($id)
+  /**
+   * @param string $id
+   *
+   * @return AssetInterface
+   */
+  public function get(string $id): AssetInterface
   {
     if ($this->has($id))
     {
@@ -50,7 +55,6 @@ class InputCollection implements PsrContainerInterface, \Countable, \IteratorAgg
 
   /**
    * @return string
-   * @throws ContainerExceptionInterface|NotFoundExceptionInterface
    */
   public function getContent(): string
   {
