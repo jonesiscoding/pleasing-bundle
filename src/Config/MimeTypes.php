@@ -26,7 +26,7 @@ namespace DevCoding\Pleasing\Config;
  */
 class MimeTypes extends \ArrayObject implements \JsonSerializable
 {
-  private array $default = [ 'js' => 'text/javascript', 'css' => 'text/css', 'svg' => 'image/svg+xml' ];
+  private array $default = [ 'js' => 'text/javascript', 'css' => 'text/css'];
 
   public function __construct($mimeTypes = [])
   {
@@ -77,6 +77,7 @@ class MimeTypes extends \ArrayObject implements \JsonSerializable
       }
     }
 
+    $output['svg'] = 'image/svg+xml';
     $output['pnm'] = 'image/x-portable-anymap';
 
     return $output;
