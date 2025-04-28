@@ -1,6 +1,6 @@
 <?php
 
-namespace DevCoding\Pleasing\Compiler;
+namespace DevCoding\Pleasing\Processor;
 
 use DevCoding\Pleasing\Asset\FileAsset;
 use DevCoding\Pleasing\Asset\InputCollection;
@@ -9,11 +9,7 @@ use DevCoding\Pleasing\Locators\SassLocator;
 use DevCoding\Pleasing\Config\Config;
 use DevCoding\Pleasing\Config\AssetConfig;
 
-/**
- * Class AssetCompiler
- * @package AppBundle\View\Pleasing
- */
-class SassCompiler extends SassHandler implements CompilerInterface
+class SassProcessor extends SassHandler implements ProcessorInterface
 {
   protected Config $config;
 
@@ -31,7 +27,7 @@ class SassCompiler extends SassHandler implements CompilerInterface
    *
    * @return AssetConfig
    */
-  public function compile(AssetConfig $Asset, bool $forceGen = true): AssetConfig
+  public function process(AssetConfig $Asset, bool $forceGen = true): AssetConfig
   {
     if ($forceGen || !$Asset->isFresh())
     {
