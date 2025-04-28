@@ -2,9 +2,10 @@
 
 namespace DevCoding\Pleasing\Asset;
 
-use Symfony\Component\Config\Resource\SelfCheckingResourceInterface;
 
-interface AssetInterface extends SelfCheckingResourceInterface
+interface AssetInterface
 {
   public function getContent(): string;
+
+  public function isFresh(int $timestamp): bool;
 }
