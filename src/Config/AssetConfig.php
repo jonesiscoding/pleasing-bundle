@@ -34,7 +34,7 @@ class AssetConfig extends ResourceCheckerConfigCache
    * @param array $options The absolute cache path
    * @param bool  $debug   Whether debugging (dev mode) is enabled or not
    *
-   * @throws \Exception
+   * @throws \InvalidArgumentException
    */
   public function __construct($options, bool $debug)
   {
@@ -138,7 +138,7 @@ class AssetConfig extends ResourceCheckerConfigCache
    * the file extension of the output file and the list of matching mime types in the Pleasing::MIME_TYPE constant.
    *
    * @return string         The mime type.
-   * @throws \Exception     If the asset is of a type that cannot be matched to a mime type.
+   * @throws \InvalidArgumentException     If the asset is of a type that cannot be matched to a mime type.
    */
   private function getMimeType(): string
   {
