@@ -33,11 +33,11 @@ class Config implements ContainerInterface
    */
   public function __construct(array $config)
   {
+    $this->debug       = $config[Config::DEBUG] ?? $_SERVER['APP_DEBUG'] ?? false;
+    $this->manifest    = $config[Config::MANIFEST];
+    $this->assets      = $config[Config::ASSETS] ?? [];
     $this->directories = new Directories($config);
     $this->filters     = new FilterCollection($this->mapFilters($config[Config::FILTERS] ?? []));
-    $this->debug       = $config[Config::DEBUG]  ?? $_SERVER['APP_DEBUG'] ?? false;
-    $this->assets      = $config[Config::ASSETS] ?? [];
-    $this->manifest    = $config[Config::MANIFEST];
   }
 
   /**
