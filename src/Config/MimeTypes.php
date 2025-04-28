@@ -37,6 +37,22 @@ class MimeTypes extends \ArrayObject implements \JsonSerializable
     );
   }
 
+  public function extensions(): array
+  {
+    return array_keys($this->getArrayCopy());
+  }
+
+  public static function images(): MimeTypes
+  {
+    $mime = new MimeTypes();
+    foreach($mime->default as $ext => $type)
+    {
+      $mime->offsetUnset($ext);
+    }
+
+    return $mime;
+  }
+
   private function __images(): array
   {
     $output = [];
