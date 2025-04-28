@@ -28,10 +28,19 @@ class MimeTypes extends \ArrayObject implements \JsonSerializable
 {
   private array $default = [ 'js' => 'text/javascript', 'css' => 'text/css'];
 
+  private array $font = [
+      'eot'   => 'application/vnd.ms-fontobject',
+      'ttf'   => 'application/x-font-ttf',
+      'otf'   => 'application/x-font-opentype',
+      'woff'  => 'application/font-woff',
+      'woff2' => 'application/font-woff2',
+      'svg'   => 'image/svg+xml',
+  ];
+
   public function __construct($mimeTypes = [])
   {
     parent::__construct(
-      array_merge($mimeTypes, $this->__images(), $this->default),
+      array_merge($mimeTypes, $this->__images(), $this->default, $this->font),
       \ArrayObject::ARRAY_AS_PROPS,
       \ArrayIterator::class
     );
@@ -48,6 +57,20 @@ class MimeTypes extends \ArrayObject implements \JsonSerializable
     foreach($mime->default as $ext => $type)
     {
       $mime->offsetUnset($ext);
+    }
+
+    return $mime;
+  }
+
+  public static function fonts(): MimeTypes
+  {
+    $mime = new MimeTypes();
+    foreach($mime->getArrayCopy() as $ext => $type)
+    {
+      if (!isset($mime->fonts[$ext]))
+      {
+        $mime->offsetUnset([$ext]);
+      }
     }
 
     return $mime;
