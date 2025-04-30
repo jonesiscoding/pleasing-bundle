@@ -8,7 +8,7 @@ use DevCoding\Pleasing\Config\MimeTypes;
 /**
  * Handles the translation of a font file to the proper output path.
  */
-class FontAssetProcessor extends AbstractStaticProcessor
+class FontProcessor extends AbstractStaticProcessor
 {
   /**
    * Returns TRUE for extensions in PleasingAssetCollection::FONTS.
@@ -37,7 +37,7 @@ class FontAssetProcessor extends AbstractStaticProcessor
    *
    * @return $this
    */
-  protected function modify(AssetConfig $AssetConfig)
+  protected function modify(AssetConfig $AssetConfig): FontProcessor
   {
     // No modifications needed
     return $this;

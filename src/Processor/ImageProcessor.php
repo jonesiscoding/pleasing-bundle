@@ -8,7 +8,7 @@ use DevCoding\Pleasing\Config\MimeTypes;
 /**
  * Handles the translation of image files to the proper output path.
  */
-class ImageAssetProcessor extends AbstractStaticProcessor
+class ImageProcessor extends AbstractStaticProcessor
 {
   /**
    * Returns TRUE for extensions in PleasingAssetCollection::IMAGES.
@@ -38,9 +38,9 @@ class ImageAssetProcessor extends AbstractStaticProcessor
    *
    * @param AssetConfig $AssetConfig
    *
-   * @return ImageAssetProcessor
+   * @return ImageProcessor
    */
-  protected function modify(AssetConfig $AssetConfig): ImageAssetProcessor
+  protected function modify(AssetConfig $AssetConfig): ImageProcessor
   {
     return $this;
   }
