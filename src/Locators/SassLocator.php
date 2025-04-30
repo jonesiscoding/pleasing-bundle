@@ -72,7 +72,7 @@ class SassLocator implements LocatorInterface, HandlerInterface
 
         $filters = $this->Config->filters->for($file);
 
-        $asset = new SassAsset($file, $located, $filters, $this->Config->directories->cache);
+        $asset = new SassAsset($file, $located, $filters);
       }
       else
       {
