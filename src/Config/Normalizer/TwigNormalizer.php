@@ -5,6 +5,7 @@ namespace DevCoding\Pleasing\Config\Normalizer;
 use DevCoding\Pleasing\Config\AssetContainer;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
+use Twig\Loader\LoaderInterface;
 
 /**
  * Provides analysis of all Twig templates in the root of the Twig paths with the given name, looking for assets
@@ -17,8 +18,8 @@ use Twig\Loader\FilesystemLoader;
  */
 class TwigNormalizer implements NormalizerInterface
 {
-  /** @var FilesystemLoader */
-  protected FilesystemLoader $loader;
+  /** @var LoaderInterface */
+  protected LoaderInterface $loader;
   /** @var string  */
   protected string $filename;
 
@@ -51,21 +52,21 @@ class TwigNormalizer implements NormalizerInterface
 
   protected function getAssetsFromTwig(): array
   {
-    $assets = array();
+    $assets   = [];
     $filename = $this->filename;
     foreach ($this->getTwigLayouts($filename) as $template)
     {
-      $contents = file_get_contents( $template );
-      $regexes  = array("/{{ ?asset\(([^\)]+)\) ?}}/");
+      $contents = file_get_contents($template);
+      $regexes  = ["/{{ ?asset\(([^\)]+)\) ?}}/"];
 
-      foreach ( $regexes as $regex )
+      foreach ($regexes as $regex)
       {
-        if ( preg_match_all( $regex, $contents, $matches ) )
+        if (preg_match_all($regex, $contents, $matches))
         {
-          foreach ( $matches[ 1 ] as $assetInfo )
+          foreach ($matches[ 1 ] as $assetInfo)
           {
-            $assetInfo = str_replace('"',"'",$assetInfo);
-            if ( preg_match( "/'([^']+)'/", $assetInfo, $parts ) )
+            $assetInfo = str_replace('"', "'", $assetInfo);
+            if (preg_match("/'([^']+)'/", $assetInfo, $parts))
             {
               $assets[] = $parts[ 1 ];
             }
@@ -87,7 +88,7 @@ class TwigNormalizer implements NormalizerInterface
    */
   protected function getTwigLayouts(string $filename = 'layout.html.twig'): array
   {
-    $layouts = array();
+    $layouts = [];
     foreach ($this->getPathsFromLoader() as $basePath)
     {
       $layouts = array_merge($layouts, glob($basePath . '/*/' . $filename));
@@ -104,7 +105,7 @@ class TwigNormalizer implements NormalizerInterface
    */
   protected function getPathsFromLoader(): array
   {
-    $paths = array();
+    $paths = [];
     if ($this->loader instanceof ChainLoader)
     {
       foreach ($this->loader->getLoaders() as $this->loader)
@@ -125,6 +126,6 @@ class TwigNormalizer implements NormalizerInterface
       return $paths;
     }
 
-    return array();
+    return [];
   }
 }
