@@ -69,7 +69,7 @@ class MimeTypes extends \ArrayObject implements \JsonSerializable
   public static function images(): MimeTypes
   {
     $mime = new MimeTypes();
-    $not = array_keys(array_merge($mime->code, $mime->style, $mime->font));
+    $not  = array_keys(array_merge($mime->code, $mime->style, $mime->font));
     foreach($not as $ext)
     {
       $mime->offsetUnset($ext);

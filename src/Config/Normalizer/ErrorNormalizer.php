@@ -12,7 +12,7 @@ class ErrorNormalizer implements NormalizerInterface
     foreach($AssetContainer as $item)
     {
       /** @var $item AssetConfig */
-      if (strpos($item->output, 'error/') !== false)
+      if (false !== strpos($item->output, 'error/'))
       {
         $item->alwaysExport = true;
         $item->alwaysWarm   = true;
