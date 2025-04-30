@@ -11,17 +11,17 @@ use DevCoding\Pleasing\Config\AssetConfig;
 
 class SassProcessor extends SassHandler implements ProcessorInterface
 {
-  protected Config $config;
+  protected Config      $Config;
   protected SassLocator $Locator;
 
   /**
-   * @param Config           $_config
-   * @param SassLocator|null $locator
+   * @param Config           $Config
+   * @param SassLocator|null $Locator
    */
-  public function __construct(Config $_config, ?SassLocator $locator = null)
+  public function __construct(Config $Config, ?SassLocator $Locator = null)
   {
-    $this->config  = $_config;
-    $this->Locator = $locator ?? new SassLocator($this->config);
+    $this->Config  = $Config;
+    $this->Locator = $Locator ?? new SassLocator($this->Config);
   }
 
   /**
@@ -44,7 +44,7 @@ class SassProcessor extends SassHandler implements ProcessorInterface
         {
           if ($filters = $Asset->filters)
           {
-            $FilterCollection = $this->config->filters;
+            $FilterCollection = $this->Config->filters;
             $FilterAsset      = (new FileAsset($Asset->output))->withContent($content);
             foreach($filters as $filterId)
             {
