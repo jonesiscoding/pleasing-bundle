@@ -172,9 +172,9 @@ class AssetCommand extends Command
       $this->Progress->finish(sprintf("Purge of %s Complete", $type));
     }
 
+    $output->writeln('');
     if (!empty($this->errors))
     {
-      $output->writeln('');
       foreach($this->errors as $error)
       {
         $output->writeln(sprintf('<error>%s</error>', $error));
@@ -184,8 +184,6 @@ class AssetCommand extends Command
 
       return Command::FAILURE;
     }
-
-    $output->writeln('');
 
     return Command::SUCCESS;
   }
