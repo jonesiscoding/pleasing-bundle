@@ -2,6 +2,7 @@
 
 namespace DevCoding\Pleasing\Config;
 
+use DevCoding\Pleasing\Config\Normalizer\NormalizerInterface;
 use DevCoding\Pleasing\Exception\NotFoundException;
 use DevCoding\Pleasing\Filter\FilterCollection;
 use Psr\Container\ContainerInterface;
@@ -31,8 +32,9 @@ class Config implements ContainerInterface
 
   /**
    * @param array $config
+   * @param NormalizerInterface[] $normalizers
    */
-  public function __construct(array $config)
+  public function __construct(array $config, array $normalizers = [])
   {
     $this->debug       = $config[Config::DEBUG] ?? $_SERVER['APP_DEBUG'] ?? false;
     $this->manifest    = $config[Config::MANIFEST];
@@ -40,6 +42,11 @@ class Config implements ContainerInterface
     $this->directories = new Directories($config);
     $this->elements    = new ElementContainer();
     $this->filters     = new FilterCollection($this->mapFilters($config[Config::FILTERS] ?? []));
+
+    foreach($normalizers as $normalizer)
+    {
+      $normalizer->normalize($this->assets);
+    }
   }
 
   /**
