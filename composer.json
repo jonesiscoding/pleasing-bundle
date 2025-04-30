@@ -1,0 +1,45 @@
+{
+    "name": "jonesiscoding/pleasing-bundle",
+    "description": "Symfony bundle for asset handling allowing for realtime changes in dev mode and static file dumping in prod.",
+    "keywords": [
+        "sass",
+        "scss",
+        "php",
+        "assetic",
+        "pleasing",
+        "sassc",
+        "minify",
+        "js",
+        "css"
+    ],
+    "homepage": "https://www.github.com/jonesiscoding/pleasing-bundle",
+    "version": "3.0",
+    "authors": [
+        {
+            "name": "Aaron M Jones",
+            "homepage": "http://www.jonesiscoding.com"
+        }
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DevCoding\\Pleasing\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "symfony/config": "^5.4",
+        "symfony/asset": "^5.4",
+        "assetic/framework": "^3.1",
+        "psr/container": "*",
+        "jonesiscoding/pleasing-filters": "dev-main",
+      "ext-json": "*",
+        "twig/twig": "*",
+        "symfony/http-kernel": "^5.4",
+        "deviscoding/html-objects": "dev-main",
+        "symfony/twig-bridge": "^5.4",
+        "symfony/dependency-injection": "^5.4",
+        "symfony/console": "^5.4"
+    }
+}
