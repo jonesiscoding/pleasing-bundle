@@ -25,6 +25,8 @@ abstract class ComplexFileAsset extends FileAsset
   }
 
   /**
+   * Returns an array of FileAsset object representing the files included or imported by this ComplexFileAsset
+   *
    * @return FileAsset[]
    */
   public function getImports(): array
