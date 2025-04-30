@@ -2,13 +2,16 @@
 
 namespace DevCoding\Pleasing\Parsers;
 
-use DevCoding\Pleasing\Handler\SassHandler;
+use DevCoding\Pleasing\Handler\HandlerInterface;
+use DevCoding\Pleasing\Handler\SassHandlerTrait;
 
 /**
  * Parses less, sass, scss and css files for locally imported dependencies.
  */
-class SassParser extends SassHandler implements ParserInterface
+class SassParser implements ParserInterface, HandlerInterface
 {
+  use SassHandlerTrait;
+
   /** @var array Array of dependencies, keyed by the previously parsed parent file paths  */
   protected array $parsed = [];
 

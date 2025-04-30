@@ -5,15 +5,18 @@ namespace DevCoding\Pleasing\Locators;
 use DevCoding\Pleasing\Asset\ComplexFileAsset;
 use DevCoding\Pleasing\Asset\CssAsset;
 use DevCoding\Pleasing\Asset\SassAsset;
+use DevCoding\Pleasing\Handler\HandlerInterface;
+use DevCoding\Pleasing\Handler\SassHandlerTrait;
 use DevCoding\Pleasing\Parsers\ParserInterface;
-use DevCoding\Pleasing\Handler\SassHandler;
 use DevCoding\Pleasing\Parsers\SassParser;
 use DevCoding\Pleasing\Config\Config;
 use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 use Symfony\Component\Config\FileLocator;
 
-class SassLocator extends SassHandler implements LocatorInterface
+class SassLocator implements LocatorInterface, HandlerInterface
 {
+  use SassHandlerTrait;
+
   /** @var SassAsset[] */
   protected array $assets = [];
   /** @var \SplFileInfo[] */
@@ -40,7 +43,7 @@ class SassLocator extends SassHandler implements LocatorInterface
    *
    * @return ComplexFileAsset
    */
-  public function locate($file, string $parentPath = null, bool $first = true): ComplexFileAsset
+  public function locate(string $file, string $parentPath = null, bool $first = true): ComplexFileAsset
   {
     if ($parentPath)
     {
