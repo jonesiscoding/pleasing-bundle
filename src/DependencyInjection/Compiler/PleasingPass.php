@@ -3,6 +3,8 @@
 namespace DevCoding\Pleasing\DependencyInjection\Compiler;
 
 use DevCoding\Pleasing\Config\Normalizer\ErrorNormalizer;
+use DevCoding\Pleasing\Processor\FontProcessor;
+use DevCoding\Pleasing\Processor\ImageProcessor;
 use DevCoding\Pleasing\Processor\SassProcessor;
 use DevCoding\Pleasing\Config\Autowire;
 use DevCoding\Pleasing\Config\Config;
@@ -12,8 +14,6 @@ use DevCoding\Pleasing\DependencyInjection\Asset\AssetSubscriberInterface;
 use DevCoding\Pleasing\DependencyInjection\Asset\AssetLoaderInterface;
 use DevCoding\Pleasing\DependencyInjection\Locator\GlobFileLocator;
 use DevCoding\Pleasing\DependencyInjection\CacheWarmer\PleasingCacheWarmer;
-use DevCoding\Pleasing\Processor\FontAssetProcessor;
-use DevCoding\Pleasing\Processor\ImageAssetProcessor;
 use DevCoding\Pleasing\Config\Normalizer\TwigNormalizer;
 use DevCoding\Pleasing\Locators\SassLocator;
 use DevCoding\Pleasing\Parsers\SassParser;
@@ -196,7 +196,7 @@ class PleasingPass implements CompilerPassInterface
    *
    * @return Reference[]
    */
-  protected function registerProcessors(ContainerBuilder $container, $locators): array
+  protected function registerProcessors(ContainerBuilder $container, ?array $locators = null): array
   {
     $locators = $locators ?? $this->getReferencesForTag($container, self::TAG_LOCATOR);
     $container->register(SassProcessor::class, SassProcessor::class)
@@ -205,12 +205,12 @@ class PleasingPass implements CompilerPassInterface
               ->addTag(self::TAG_PROCESSOR)
     ;
 
-    $container->register(FontAssetProcessor::class, FontAssetProcessor::class)
+    $container->register(FontProcessor::class, FontProcessor::class)
               ->addArgument($this->config)
               ->addTag(self::TAG_PROCESSOR)
     ;
 
-    $container->register(ImageAssetProcessor::class, ImageAssetProcessor::class)
+    $container->register(ImageProcessor::class, ImageProcessor::class)
               ->addArgument($this->config)
               ->addTag(self::TAG_PROCESSOR)
     ;
