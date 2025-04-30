@@ -16,9 +16,8 @@ class FileAsset implements AssetInterface
   /**
    * @param string                $path
    * @param FilterCollection|null $Filters
-   * @param string|null           $cache
    */
-  public function __construct(string $path, ?FilterCollection $Filters = null, ?string $cache = null)
+  public function __construct(string $path, ?FilterCollection $Filters = null)
   {
     // We want to write this to a temporary cache location...
     // That way each load/dump isn't done from scratch, individual files in an asset can be cached
@@ -38,11 +37,6 @@ class FileAsset implements AssetInterface
   public function __clone()
   {
     $this->content = null;
-  }
-
-  public function isFresh($timestamp): bool
-  {
-    return false !== ($filemtime = @filemtime($this->getPathname())) && $filemtime <= $timestamp;
   }
 
   public function getPathname(): string
