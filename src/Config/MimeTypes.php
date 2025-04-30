@@ -26,7 +26,8 @@ namespace DevCoding\Pleasing\Config;
  */
 class MimeTypes extends \ArrayObject implements \JsonSerializable
 {
-  private array $default = [ 'js' => 'text/javascript', 'css' => 'text/css'];
+  private array $code  = ['js' => 'text/javascript'];
+  private array $style = ['css' => 'text/css'];
 
   private array $font = [
       'eot'   => 'application/vnd.ms-fontobject',
@@ -40,7 +41,7 @@ class MimeTypes extends \ArrayObject implements \JsonSerializable
   public function __construct($mimeTypes = [])
   {
     parent::__construct(
-      array_merge($mimeTypes, $this->__images(), $this->default, $this->font),
+      array_merge($mimeTypes, $this->code, $this->style, $this->font, $this->__images()),
       \ArrayObject::ARRAY_AS_PROPS,
       \ArrayIterator::class
     );
@@ -51,10 +52,25 @@ class MimeTypes extends \ArrayObject implements \JsonSerializable
     return array_keys($this->getArrayCopy());
   }
 
+  public static function code(): MimeTypes
+  {
+    $mime = new MimeTypes();
+    foreach($mime->getArrayCopy() as $ext => $type)
+    {
+      if (!isset($mime->code[$ext]))
+      {
+        $mime->offsetUnset([$ext]);
+      }
+    }
+
+    return $mime;
+  }
+
   public static function images(): MimeTypes
   {
     $mime = new MimeTypes();
-    foreach($mime->default as $ext => $type)
+    $not = array_keys(array_merge($mime->code, $mime->style, $mime->font));
+    foreach($not as $ext)
     {
       $mime->offsetUnset($ext);
     }
@@ -68,6 +84,20 @@ class MimeTypes extends \ArrayObject implements \JsonSerializable
     foreach($mime->getArrayCopy() as $ext => $type)
     {
       if (!isset($mime->fonts[$ext]))
+      {
+        $mime->offsetUnset([$ext]);
+      }
+    }
+
+    return $mime;
+  }
+
+  public static function styles(): MimeTypes
+  {
+    $mime = new MimeTypes();
+    foreach($mime->getArrayCopy() as $ext => $type)
+    {
+      if (!isset($mime->style[$ext]))
       {
         $mime->offsetUnset([$ext]);
       }
