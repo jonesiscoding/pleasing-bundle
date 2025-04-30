@@ -13,13 +13,13 @@ class ImageProcessor extends AbstractStaticProcessor
   /**
    * Returns TRUE for extensions in PleasingAssetCollection::IMAGES.
    *
-   * @param AssetConfig $AssetConfig
+   * @param string $file
    *
    * @return bool
    */
-  public function handles(AssetConfig $AssetConfig): bool
+  public static function handles(string $file): bool
   {
-    if ($ext = $AssetConfig->extension)
+    if ($ext = static::getExtension($file))
     {
       if (in_array(strtolower($ext), MimeTypes::images()->extensions()))
       {

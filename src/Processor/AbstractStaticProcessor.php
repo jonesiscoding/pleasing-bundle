@@ -3,6 +3,7 @@
 namespace DevCoding\Pleasing\Processor;
 
 use DevCoding\Pleasing\Config\AssetConfig;
+use DevCoding\Pleasing\Handler\HandlerInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
 
 /**
@@ -11,7 +12,7 @@ use Symfony\Component\Filesystem\Exception\IOException;
  * Class AbstractStaticAssetCompiler
  * @package App\View\Pleasing\Compiler
  */
-abstract class AbstractStaticProcessor implements ProcessorInterface
+abstract class AbstractStaticProcessor implements ProcessorInterface, HandlerInterface
 {
   /**
    * Must perform any needed modifications to the file. The path returned by AssetConfig::getPath can be assumed to
@@ -55,5 +56,22 @@ abstract class AbstractStaticProcessor implements ProcessorInterface
     }
 
     return $this;
+  }
+
+  /**
+   * Gets the extension from a filename, for use in situations where a full path is not available.
+   *
+   * @param string $filename The filename to determine the extension of.
+   *
+   * @return  string         The extension.  If no extension can be found, then returns an empty string.
+   */
+  protected static function getExtension(string $filename): string
+  {
+    if (false !== $pos = strrpos($filename, '.'))
+    {
+      return substr($filename, $pos);
+    }
+
+    return '';
   }
 }
