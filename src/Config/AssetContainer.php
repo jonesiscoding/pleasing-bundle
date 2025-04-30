@@ -22,6 +22,16 @@ class AssetContainer extends AbstractContainer
     return $this;
   }
 
+  public function filterByAlwaysWarm(): AssetContainer
+  {
+    return $this->with(array_filter($this->getIterator()->getArrayCopy(), function($asset) { return $asset->alwaysWarm; }));
+  }
+
+  public function filterByAlwaysExport(): AssetContainer
+  {
+    return $this->with(array_filter($this->getIterator()->getArrayCopy(), function($asset) { return $asset->alwaysExport; }));
+  }
+
   /**
    * @return AssetContainer
    */
@@ -37,7 +47,7 @@ class AssetContainer extends AbstractContainer
    *
    * @return AssetContainer
    */
-  public function filterFonts(bool $exclude = false): AssetContainer
+  public function filterByFonts(bool $exclude = false): AssetContainer
   {
     return $this->filterByExtension(MimeTypes::fonts()->extensions(), $exclude);
   }
