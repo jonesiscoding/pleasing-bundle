@@ -4,5 +4,5 @@ namespace DevCoding\Pleasing\Locators;
 
 interface LocatorInterface
 {
-  public function locate($file);
+  public function locate(string $file);
 }
